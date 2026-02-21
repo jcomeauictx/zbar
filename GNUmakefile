@@ -1,3 +1,5 @@
+all: Makefile
+	$(MAKE) -f $<
 requirements:
 	sudo apt install \
 	  libv4l-dev libxv-dev libdbus-1-dev \
@@ -6,3 +8,9 @@ requirements:
 	  qtbase5-dev libqt5x11extras5-dev \
 	  default-jdk gettext xmlto doxygen \
 	  libgirepository1.0-dev gobject-introspection
+%: Makefile
+	$(MAKE) -f $< $@
+Makefile: configure
+	./$<
+configure:
+	autoreconf -vfi
