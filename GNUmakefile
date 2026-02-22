@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 all: Makefile
 	$(MAKE) -f $<
 requirements:
@@ -14,8 +15,9 @@ Makefile: configure
 	./$<
 configure:
 	autoreconf -vfi
-zbar.deb: debian/changelog
-	debuild -b
+package: ../python3-zbar_0.23.93-8-jc_amd64.deb
+../python3-zbar_0.23.93-8-jc_amd64.deb: debian/changelog
+	debuild -b -us -uc
 	git checkout -- perl/examples/{processor,read_one}.pl
 debian/changelog: debian
 debian: ../../zbar-0.23.93/debian
