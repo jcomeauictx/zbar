@@ -16,3 +16,11 @@ configure:
 	autoreconf -vfi
 zbar.deb: debian/changelog
 	debuild -b
+	git checkout -- perl/examples/{processor,read_one}.pl
+debian/changelog: debian
+debian: ../../zbar-0.23.93/debian
+	cp -r $< .
+	rm -f debian/patches/000[23]*
+	sed -i -n '/^0001/p' debian/patches/series
+	@echo Must update debian/changelog before continuing >&2
+	false
