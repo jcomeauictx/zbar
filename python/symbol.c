@@ -105,6 +105,12 @@ static PyObject *symbol_get_data(zbarSymbol *self, void *closure)
 	self->data = PyUnicode_FromStringAndSize(
 	    zbar_symbol_get_data(self->zsym),
 	    zbar_symbol_get_data_length(self->zsym));
+	if (!self->data) {
+	    PyErr_Clear();
+	    self->data = PyBytes_FromStringAndSize(
+		zbar_symbol_get_data(self->zsym),
+		zbar_symbol_get_data_length(self->zsym));
+	}
 #else
 	/* FIXME this could be a buffer now */
 	self->data =
