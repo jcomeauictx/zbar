@@ -14,3 +14,5 @@ Makefile: configure
 	./$<
 configure:
 	autoreconf -vfi
+zbar.deb: debian/changelog
+	debuild -b
