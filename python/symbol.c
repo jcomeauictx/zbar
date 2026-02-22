@@ -102,15 +102,9 @@ static PyObject *symbol_get_data(zbarSymbol *self, void *closure)
 {
     if (!self->data) {
 #if PY_MAJOR_VERSION >= 3
-	self->data = PyUnicode_FromStringAndSize(
+	self->data = PyBytes_FromStringAndSize(
 	    zbar_symbol_get_data(self->zsym),
 	    zbar_symbol_get_data_length(self->zsym));
-	if (!self->data) {
-	    PyErr_Clear();
-	    self->data = PyBytes_FromStringAndSize(
-		zbar_symbol_get_data(self->zsym),
-		zbar_symbol_get_data_length(self->zsym));
-	}
 #else
 	/* FIXME this could be a buffer now */
 	self->data =
