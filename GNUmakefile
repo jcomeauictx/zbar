@@ -26,3 +26,5 @@ debian: ../../zbar-0.23.93/debian
 	sed -i -n '/^0001/p' debian/patches/series
 	@echo Must update debian/changelog before continuing >&2
 	false
+pkginstall: ../libzbar0t64_*.deb ../python3-zbar_*.deb
+	sudo apt install $+
